@@ -1,10 +1,8 @@
-import time
 import os
-import json
-import openai
 import streamlit as st
-from streamlit_lottie import st_lottie
 from tenacity import retry, stop_after_attempt, wait_random_exponential
+import google.generativeai as genai
+
 
 def main():
     set_page_config()
@@ -65,7 +63,7 @@ def input_section():
         with col1:
             brand_name = st.text_input('**Enter Brand/Company Name**')
         with col2:
-            description = st.text_input(f'**Describe What {brand_name} Does ?** (In 5-6 words)')
+            description = st.text_input(f'**Describe What Your Company Does ?** (In 5-6 words)')
 
         problem = st.text_input('What Problem Does Your Audience Face?', help="Example: 'Struggling to manage finances'")
         agitate = st.text_input('Why is This Problem Serious for Your Audience?', help="Guide: 'Highlight the negative impact'")
@@ -120,9 +118,9 @@ def generate_text_with_exception_handling(prompt):
 
         generation_config = {
             "temperature": 1,
-            "top_p": 0.95,
+            "top_p": 0.6,
             "top_k": 0,
-            "max_output_tokens": 8192,
+            "max_output_tokens": 500,
         }
 
         safety_settings = [
