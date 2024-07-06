@@ -20,29 +20,39 @@ def set_page_config():
 def custom_css():
     st.markdown("""
         <style>
-            .block-container {
-                padding-top: 0rem;
-                padding-bottom: 0rem;
-                padding-left: 1rem;
-                padding-right: 1rem;
-            }
-        </style>
-    """, unsafe_allow_html=True)
+                ::-webkit-scrollbar-track {
+        background: #e1ebf9;
+        }
 
-    st.markdown("""
-        <style>
-            [class="st-emotion-cache-7ym5gk ef3psqc12"] {
-                display: inline-block;
-                padding: 5px 20px;
-                background-color: #4681f4;
-                color: #FBFFFF;
-                width: 300px;
-                height: 35px;
-                text-align: center;
-                text-decoration: none;
-                font-size: 16px;
-                border-radius: 8px;
-            }
+        ::-webkit-scrollbar-thumb {
+            background-color: #90CAF9;
+            border-radius: 10px;
+            border: 3px solid #e1ebf9;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64B5F6;
+        }
+
+        ::-webkit-scrollbar {
+            width: 16px;
+        }
+        div.stButton > button:first-child {
+            background: #1565C0;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 2px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
+        }
         </style>
     """, unsafe_allow_html=True)
 
