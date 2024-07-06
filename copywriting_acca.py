@@ -13,7 +13,7 @@ def main():
 
 def set_page_config():
     st.set_page_config(
-        page_title="Alwrity Copywriting",
+        page_title="Alwrity ACCA Copywriting",
         layout="wide",
     )
 
@@ -57,40 +57,46 @@ def hide_elements():
 def title_and_description():
     st.title("✍️ Alwrity - AI Generator for CopyWriting ACCA Formula")
 
+
 def input_section():
-    with st.expander("**PRO-TIP** - Campaign's Key features and benefits to build **Interest & Desire**", expanded=True):
+    with st.expander("**💡 PRO-TIP** - Highlight Campaign's Key Features and Benefits to Build **Interest & Desire**", expanded=True):
         col1, space, col2 = st.columns([5, 0.1, 5])
         with col1:
-            brand_name = st.text_input('**Enter Brand/Company Name**')
+            brand_name = st.text_input('**🏢 Enter Brand/Company Name**', placeholder="e.g., Alwrity")
         with col2:
-            description = st.text_input(f'**Describe What Your Company Does ?** (In 5-6 words)')
+            description = st.text_input(f'**📝 Describe What Your Company Does (In 5-6 words)**', placeholder="e.g., AI writing tools")
 
-        problem = st.text_input('What Problem Does Your Audience Face?', help="Example: 'Struggling to manage finances'")
-        agitate = st.text_input('Why is This Problem Serious for Your Audience?', help="Guide: 'Highlight the negative impact'")
-        solution = st.text_input('How Does Your Product/Service Solve This Problem?', help="Guide: 'Explain how your solution helps'")
+        problem = st.text_input('❓ **What Problem Does Your Audience Face?**', 
+                    help="Example: 'Struggling to manage finances'", 
+                    placeholder="e.g., Struggling to manage finances")
+        agitate = st.text_input('🔥 **Why is This Problem Serious for Your Audience?**', 
+                    help="Highlight the negative impact", 
+                    placeholder="e.g., Leads to financial instability")
+        solution = st.text_input('💡 **How Does Your Product/Service Solve This Problem?**', 
+                    help="Explain how your solution helps", 
+                    placeholder="e.g., Provides easy-to-use budgeting tools")
 
-        if st.button('**Get ACCA Copy**'):
+        if st.button('**🚀 Get ACCA Copy**'):
             if problem.strip() and agitate.strip() and solution.strip():
-                with st.spinner("Generating ACCA Copy..."):
+                with st.spinner("🔄 Generating ACCA Copy..."):
                     acca_copy = generate_acca_copy(brand_name, description, problem, agitate, solution)
                     if acca_copy:
-                        st.subheader('**👩🔬👩🔬 Your ACCA Copy**')
+                        st.subheader('**✨ Your ACCA Copy**')
                         st.markdown(acca_copy)
                     else:
                         st.error("💥 **Failed to generate ACCA copy. Please try again!**")
             else:
-                st.error("Problem, Agitate, and Solution fields are required!")
-
+                st.error("🚫 **Problem, Agitate, and Solution fields are required!**")
 
 
 def generate_acca_copy(brand_name, description, problem, agitate, solution):
-    prompt = f"""As an expert social media copywriter, I need your help in creating a marketing campaign for {brand_name}, 
-        which is a {description}. Your task is to use the ACCA (Awareness-Comprehension-Conviction-Action) formula to craft compelling copy.
-        Use below Details:
-        - Awareness: {problem}
-        - Comprehension: {agitate}
-        - Conviction: {solution}
-        Do not provide explanations in your response, provide response as final ad copy.
+    prompt = f"""You are a top-tier social media copywriter. Create 5 different persuasive marketing campaigns for {brand_name}, 
+        a company that specializes in {description}. Use the ACCA (Awareness-Curiosity-Conviction-Action) formula to craft 5 compelling copies.
+        Here are the details:
+        - **Awareness**: {problem}
+        - **Curiosity**: {agitate}
+        - **Conviction**: {solution}
+        Please provide the final ad copy directly without any explanations.
     """
     try:
         response = generate_text_with_exception_handling(prompt)
@@ -117,10 +123,10 @@ def generate_text_with_exception_handling(prompt):
         genai.configure(api_key=os.getenv('GEMINI_API_KEY'))
 
         generation_config = {
-            "temperature": 1,
+            "temperature": 0.7,
             "top_p": 0.6,
             "top_k": 0,
-            "max_output_tokens": 500,
+            "max_output_tokens": 1024,
         }
 
         safety_settings = [
@@ -142,7 +148,7 @@ def generate_text_with_exception_handling(prompt):
             },
         ]
 
-        model = genai.GenerativeModel(model_name="gemini-1.5-pro-latest",
+        model = genai.GenerativeModel(model_name="gemini-1.5-flash",
                                       generation_config=generation_config,
                                       safety_settings=safety_settings)
 
